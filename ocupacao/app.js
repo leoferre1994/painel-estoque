@@ -1,4 +1,4 @@
-const data=window.STOCK_DATA;
+let data=window.STOCK_DATA||[];
 const $=id=>document.getElementById(id),fmt=n=>new Intl.NumberFormat('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1}).format(n),pct=n=>fmt(n)+'%',escape=s=>String(s??'Não informado').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function sum(rows){return rows.reduce((a,r)=>({capacity:a.capacity+(r.capacity??0),volume:a.volume+(r.volume??0)}),{capacity:0,volume:0})}
 function groups(rows,key){const m=new Map;for(const r of rows){const k=key(r);if(!m.has(k))m.set(k,[]);m.get(k).push(r)}return [...m].map(([name,rows])=>({name,rows,...sum(rows)})).sort((a,b)=>b.volume-a.volume)}
@@ -16,3 +16,47 @@ for(const key of ['deposit','area']){for(const value of [...new Set(data.filter(
 function chart(target,rows,key){$(target).innerHTML=groups(rows,r=>r[key]||'Não informado').map(g=>{const p=g.capacity>0?g.volume/g.capacity*100:null;return '<div class="item '+(p>100?'over':'')+'"><div class="item-top"><span>'+escape(g.name)+'</span><strong>'+(p===null?'Sem capacidade':pct(p))+'</strong></div><div class="bar"><span style="width:'+Math.min(100,p??0)+'%"></span></div><div class="item-bottom"><span>'+fmt(g.volume)+' m³ ocupados</span><span>'+fmt(g.capacity)+' m³ de capacidade</span></div></div>'}).join('')||'<div class="empty">Nenhum endereço para esta seleção.</div>'}
 function render(){const rows=data.filter(r=>(!$('deposit').value||r.deposit===$('deposit').value)&&(!$('area').value||r.area===$('area').value));const s=sum(rows),p=s.capacity>0?s.volume/s.capacity*100:null,filtered=$('deposit').value||$('area').value;$('occupancy').textContent=p===null?'—':pct(p);$('volume').textContent=fmt(s.volume);$('capacity').textContent=fmt(s.capacity)+' m³';$('gauge').style.width=Math.min(100,p??0)+'%';$('balance').textContent=(s.capacity>=s.volume?'Saldo: ':'Excesso: ')+fmt(Math.abs(s.capacity-s.volume))+' m³';$('count').textContent=rows.filter(r=>r.volume>0).length+' endereços ocupados';$('scope').textContent=filtered?'Filtros ativos: '+($('deposit').value||'Todos os depósitos')+' · '+($('area').value||'Todas as áreas'):'Visão geral · Todos os depósitos e áreas responsáveis';$('occLabel').textContent=filtered?'Ocupação do estoque filtrado':'Ocupação do estoque total';$('volLabel').textContent=filtered?'Volume do estoque filtrado':'Volume total do estoque';$('volumeDesc').textContent=filtered?'Soma do volume ocupado na seleção atual.':'Soma do volume ocupado em todos os depósitos.';groupedView(rows);const missingV=rows.filter(r=>r.volume===null).length,missingC=rows.filter(r=>r.capacity===null).length;$('quality').hidden=!(missingV||missingC);$('quality').textContent='Dados incompletos na seleção: '+missingC+' endereço(s) sem capacidade e '+missingV+' sem volume informado. Valores ausentes não acrescentam às somas; não representam confirmação de estoque vazio.';const q=$('search').value.toLocaleLowerCase('pt-BR');$('details').innerHTML=rows.filter(r=>r.volume>0).filter(r=>[r.position,r.deposit,areaNames[r.area]||r.area].join(' ').toLocaleLowerCase('pt-BR').includes(q)).sort((a,b)=>String(a.area).localeCompare(String(b.area))||String(a.deposit).localeCompare(String(b.deposit))||String(a.position).localeCompare(String(b.position))).map(r=>'<tr><td>'+escape(r.position)+'</td><td>'+escape(r.deposit)+'</td><td>'+escape(areaNames[r.area]||r.area)+'</td><td class="num">'+(r.capacity===null?'—':fmt(r.capacity))+'</td><td class="num">'+fmt(r.volume)+'</td><td class="num">'+(r.capacity>0?pct(r.volume/r.capacity*100):'—')+'</td></tr>').join('')||'<tr><td colspan="6" class="empty">Nenhum endereço ocupado encontrado.</td></tr>'}
 $('reset').onclick=()=>{$('deposit').value='';$('area').value='';$('search').value='';render()};$('search').addEventListener('input',render);render();
+
+let fetching=false;
+function refreshOptions(){
+ for(const key of ['deposit','area']){
+  const select=$(key),old=select.value;
+  select.innerHTML='<option value="">'+(key==='deposit'?'Todos os depósitos':'Todas as áreas')+'</option>';
+  for(const value of [...new Set(data.filter(r=>r.volume>0).map(r=>r[key]).filter(Boolean))].sort()){
+   const option=document.createElement('option');option.value=value;option.textContent=value;select.append(option);
+  }
+  select.value=[...select.options].some(o=>o.value===old)?old:'';
+ }
+}
+async function refreshPublishedData(){
+ if(fetching)return;
+ fetching=true;$('refreshData').disabled=true;
+ try{
+  const url=new URL('data.js',location.href);url.searchParams.set('_update',Date.now());
+  const response=await fetch(url,{cache:'no-store'});
+  if(!response.ok)throw new Error('HTTP '+response.status);
+  const text=await response.text();
+  const match=text.match(/window\.STOCK_DATA=(\[[\s\S]*?\]);/);
+  if(!match)throw new Error('Dados indisponíveis');
+  const next=JSON.parse(match[1]);
+  if(!Array.isArray(next)||!next.length)throw new Error('Base vazia');
+  const metaMatch=text.match(/window\.STOCK_META=(\{[\s\S]*?\});/);
+  const meta=metaMatch?JSON.parse(metaMatch[1]):null;
+  data=next;window.STOCK_DATA=next;window.STOCK_META=meta;
+  refreshOptions();render();
+  const stamp=meta?.updatedAt?new Date(meta.updatedAt).toLocaleString('pt-BR'):'não informada';
+  $('freshness').classList.remove('error');
+  $('freshness').textContent='Última publicação: '+stamp+' · Verificado agora · Atualização automática a cada minuto';
+  const footer=document.querySelector('footer');
+  if(footer?.firstChild)footer.firstChild.textContent='Fonte: endereços_capacidade · Dados publicados em '+stamp+'.';
+ }catch(error){
+  $('freshness').classList.add('error');
+  $('freshness').textContent=data.length?'Falha ao buscar a versão mais recente. Os valores são da última consulta. Clique em Atualizar dados para tentar novamente.':'Não foi possível carregar os dados. Clique em Atualizar dados para tentar novamente.';
+ }finally{fetching=false;$('refreshData').disabled=false;}
+}
+$('occupancy').textContent='—';$('volume').textContent='—';
+$('refreshData').addEventListener('click',refreshPublishedData);
+window.addEventListener('focus',refreshPublishedData);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshPublishedData()});
+setInterval(()=>{if(!document.hidden)refreshPublishedData()},60000);
+refreshPublishedData();
