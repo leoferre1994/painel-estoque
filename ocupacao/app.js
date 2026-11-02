@@ -48,7 +48,7 @@ async function refreshPublishedData(){
   $('lastUpdate').textContent=stamp;
   $('lastUpdate').dateTime=meta?.updatedAt||'';
   $('freshness').classList.remove('error');
-  $('freshness').textContent='Última publicação: '+stamp+' · Verificado agora · Atualização automática a cada minuto';
+  $('freshness').textContent='Última publicação: '+stamp+' · Atualização manual pelo botão';
   const footer=document.querySelector('footer');
   if(footer?.firstChild)footer.firstChild.textContent='Fonte: endereços_capacidade · Dados publicados em '+stamp+'.';
  }catch(error){
@@ -58,7 +58,4 @@ async function refreshPublishedData(){
 }
 $('occupancy').textContent='—';$('volume').textContent='—';
 $('refreshData').addEventListener('click',refreshPublishedData);
-window.addEventListener('focus',refreshPublishedData);
-document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshPublishedData()});
-setInterval(()=>{if(!document.hidden)refreshPublishedData()},60000);
 refreshPublishedData();
