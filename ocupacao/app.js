@@ -45,6 +45,8 @@ async function refreshPublishedData(){
   data=next;window.STOCK_DATA=next;window.STOCK_META=meta;
   refreshOptions();render();
   const stamp=meta?.updatedAt?new Date(meta.updatedAt).toLocaleString('pt-BR'):'não informada';
+  $('lastUpdate').textContent=stamp;
+  $('lastUpdate').dateTime=meta?.updatedAt||'';
   $('freshness').classList.remove('error');
   $('freshness').textContent='Última publicação: '+stamp+' · Verificado agora · Atualização automática a cada minuto';
   const footer=document.querySelector('footer');
