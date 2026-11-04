@@ -16,7 +16,7 @@ table{width:100%;border-collapse:collapse;font-size:13px}th{font-size:11px;text-
 .hour-summary .hour-row{grid-template-columns:110px 1fr 105px;margin:16px 0}.hour-summary .hour-row .track{height:18px}.hour-summary .hour-row .m3{font-size:12px}.hour-summary .hour-row .fill{background:linear-gradient(90deg,#1b6c91,#2686a4)}@media(max-width:580px){.hour-summary .hour-row{grid-template-columns:83px 1fr 90px;gap:6px}.hour-summary .hour-row .m3{font-size:11px}}
 .pending-filters{display:grid;grid-template-columns:minmax(120px,.8fr) minmax(160px,1.4fr) auto;gap:10px;align-items:end;margin-bottom:10px}.pending-filters label{display:flex;flex-direction:column;gap:5px;font-size:12px;font-weight:650;color:#5d7282}.pending-filters select,.pending-filters input,.pending-filters button{font:inherit}.pending-filters select,.pending-filters input{width:100%;min-width:0;height:37px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);padding:7px 9px;font-size:12px}.pending-filters button{height:37px;border:1px solid var(--line);border-radius:8px;background:#f1f8fa;color:var(--blue);padding:7px 10px;cursor:pointer;font-size:12px}.pending-filters :focus-visible{outline:2px solid var(--blue);outline-offset:2px}.pending-table{max-height:350px;overflow:auto;margin-top:9px}.pending-table th{position:sticky;top:0;background:#fff;z-index:1}.pending-table th,.pending-table td{text-align:left}.pending-table td:nth-child(2){white-space:nowrap;font-variant-numeric:tabular-nums}.pending-status{font-size:11px;color:#a56818;background:#fff5e5;padding:3px 7px;border-radius:8px}.pending-empty{text-align:center!important;color:var(--muted);padding:24px 8px}@media(max-width:580px){.pending-filters{grid-template-columns:1fr 1fr}.pending-filters button{grid-column:1/-1}.pending-table{max-height:300px}.pending-panel .panel-head{flex-wrap:wrap}}
 .dashboard-tabs{display:flex;gap:8px;margin:-5px 0 19px;border-bottom:1px solid var(--line)}.dashboard-tabs button{font:inherit;font-weight:700;font-size:13px;color:#526e80;background:transparent;border:0;border-bottom:3px solid transparent;padding:11px 15px;cursor:pointer}.dashboard-tabs button[aria-selected="true"]{color:var(--blue);border-color:var(--blue)}.dashboard-tabs button:focus-visible,.analysis-panel :focus-visible{outline:2px solid var(--blue);outline-offset:2px}[hidden]{display:none!important}
-.analysis-summary{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:17px}.analysis-note{color:#8d5d19;background:#fff7e9;border:1px solid #f0dfbf;border-radius:10px;padding:10px 12px;font-size:12px}.analysis-tools{display:grid;grid-template-columns:140px minmax(150px,1fr) 180px auto;gap:10px;align-items:end;margin:15px 0}.analysis-tools label,.review-access label{display:flex;flex-direction:column;gap:5px;font-size:12px;font-weight:650;color:#5d7282}.analysis-tools select,.analysis-tools input,.review-access input,.analysis-tools button,.analysis-table select{font:inherit;font-size:12px;min-height:36px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);padding:6px 9px}.analysis-tools button{cursor:pointer;background:#f1f8fa;color:var(--blue)}.review-access{display:flex;flex-wrap:wrap;gap:10px;align-items:end;margin:12px 0}.review-access input{width:200px}.review-access .hint{max-width:420px}.analysis-table{overflow:auto;max-height:65vh;border:1px solid var(--line);border-radius:10px}.analysis-table table{min-width:1220px}.analysis-table th{position:sticky;top:0;z-index:1;background:#f8fbfc;text-align:left}.analysis-table td{text-align:left;vertical-align:top}.analysis-table td.num{text-align:right;font-weight:750}.analysis-table details{font-size:11px;max-width:190px}.analysis-table summary{cursor:pointer;color:var(--blue);font-weight:700}.lot-list{word-break:break-word;max-height:130px;overflow:auto;margin-top:5px;color:#526e80}.analysis-table .review-select{width:155px}.analysis-table .review-select:disabled{opacity:.55}.analysis-result{min-height:20px;font-size:12px;color:var(--muted)}@media(max-width:760px){.analysis-tools{grid-template-columns:1fr 1fr}.analysis-tools button{grid-column:1/-1}.review-access input{width:100%}.review-access label{flex:1 1 160px}}
+.analysis-summary{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:17px}.analysis-note{color:#8d5d19;background:#fff7e9;border:1px solid #f0dfbf;border-radius:10px;padding:10px 12px;font-size:12px}.analysis-tools{display:grid;grid-template-columns:140px minmax(150px,1fr) 180px auto;gap:10px;align-items:end;margin:15px 0}.analysis-tools label{display:flex;flex-direction:column;gap:5px;font-size:12px;font-weight:650;color:#5d7282}.analysis-tools select,.analysis-tools input,.analysis-tools button{font:inherit;font-size:12px;min-height:36px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);padding:6px 9px}.analysis-tools button{cursor:pointer;background:#f1f8fa;color:var(--blue)}.analysis-table{overflow:auto;max-height:65vh;border:1px solid var(--line);border-radius:10px}.analysis-table table{min-width:1220px}.analysis-table th{position:sticky;top:0;z-index:1;background:#f8fbfc;text-align:left}.analysis-table td{text-align:left;vertical-align:top}.analysis-table td.num{text-align:right;font-weight:750}.analysis-table details{font-size:11px;max-width:190px}.analysis-table summary{cursor:pointer;color:var(--blue);font-weight:700}.lot-list{word-break:break-word;max-height:130px;overflow:auto;margin-top:5px;color:#526e80}.analysis-result{min-height:20px;font-size:12px;color:var(--muted)}@media(max-width:760px){.analysis-tools{grid-template-columns:1fr 1fr}.analysis-tools button{grid-column:1/-1}}
 </style>
 </head>
 <body>
@@ -45,12 +45,11 @@ table{width:100%;border-collapse:collapse;font-size:13px}th{font-size:11px;text-
  <article class="panel"><div class="panel-head"><div><h2>Inconsistências por endereço</h2><p class="hint">Lotes distintos da Base EWM (C/K), Base Contagem (L/M) e Pend.Inventario (AY/K). Inventariante: Base Contagem Z.</p></div><span id="analysisCount" class="pill">— endereços</span></div>
  <div class="analysis-summary"><span id="analysisUnmapped" class="analysis-note">—</span><span class="analysis-note">Endereços sem leitura e sem pendência vinculada não são classificados como divergência.</span></div>
  <div class="analysis-tools"><label for="analysisWarehouse">Armazém<select id="analysisWarehouse"><option value="">Todos</option></select></label><label for="analysisAddress">Endereço<input id="analysisAddress" type="search" placeholder="Buscar endereço" autocomplete="off"></label><label for="analysisType">Tipo<select id="analysisType"><option value="">Todas as divergências</option><option value="missing">Lote não lido</option><option value="unexpected">Lote não previsto</option><option value="pending">Pend. Inventário</option></select></label><button type="button" id="refreshAnalysis">Atualizar dados</button></div>
- <div class="review-access"><label for="reviewerName">Seu nome para validação<input id="reviewerName" type="text" maxlength="60" autocomplete="name" placeholder="Quem está validando"></label><label for="reviewKey">Chave de edição<input id="reviewKey" type="password" autocomplete="off" placeholder="Para salvar para todos"></label><p id="reviewConnection" class="hint" role="status">Verificando gravação compartilhada…</p></div>
  <div id="analysisResult" class="analysis-result" role="status" aria-live="polite"></div>
- <div class="analysis-table"><table><thead><tr><th>Armazém</th><th>Endereço</th><th>Lotes EWM</th><th>Lidos</th><th>Pend. Inventário</th><th>Diferença de lotes</th><th>Inventariante</th><th>Revisão</th></tr></thead><tbody id="analysisRows"></tbody></table></div>
+ <div class="analysis-table"><table><thead><tr><th>Armazém</th><th>Endereço</th><th>Lotes EWM</th><th>Lidos</th><th>Pend. Inventário</th><th>Diferença de lotes</th><th>Inventariante</th></tr></thead><tbody id="analysisRows"></tbody></table></div>
  </article>
 </section>
-<footer class="footer"><span>Fonte: Acompanhamento Inventario · Base EWM, Base Contagem, Pend.Inventario e MAPA ENDEREÇOS</span><span id="lastCheck">Dados sincronizados pelo OneDrive</span></footer>
+<footer class="footer"><span>Fonte: Acompanhamento Inventario · Base EWM, Base Contagem, Pend.Inventario e MAPA ENDEREÇOS</span><span id="lastCheck">Publicado no GitHub Pages</span></footer>
 </main>
 <script>
 const fmtN=new Intl.NumberFormat("pt-BR",{maximumFractionDigits:0});
@@ -58,9 +57,7 @@ const fmtM=new Intl.NumberFormat("pt-BR",{minimumFractionDigits:2,maximumFractio
 const fmtP=new Intl.NumberFormat("pt-BR",{minimumFractionDigits:1,maximumFractionDigits:1});
 const sectors={"Expedição":["AE00","AE02","CA01"],"Revestidos":["ALB1","BP02","BP04"],"MDP":["FA03"],"MDF":["MDF1"]};
 const safeName=s=>String(s||"Sem identificação").replace(/[<>]/g,"");
-const reviewApi="https://inventario-revisoes-leoferre.loyallamb17.chatgpt.site";
-let reviewOnline=false,reviewSnapshot="",reviewRows=[],reviewValues=new Map();
-const reviewId=x=>x.warehouse+"\u001f"+x.address;
+let analysisRows=[];
 function showTab(){
  const analysis=location.hash==="#inconsistencias";
  document.getElementById("overviewPanel").hidden=analysis;
@@ -82,8 +79,8 @@ function renderAnalysisRows(){
  const warehouse=document.getElementById("analysisWarehouse").value;
  const address=document.getElementById("analysisAddress").value.trim().toLocaleLowerCase("pt-BR");
  const type=document.getElementById("analysisType").value;
- const rows=reviewRows.filter(x=>(!warehouse||x.warehouse===warehouse)&&(!address||x.address.toLocaleLowerCase("pt-BR").includes(address))&&(!type||type==="missing"&&x.missingLots.length||type==="unexpected"&&x.unexpectedLots.length||type==="pending"&&x.pendingCount));
- document.getElementById("analysisCount").textContent=fmtN.format(rows.length)+" de "+fmtN.format(reviewRows.length)+" endereços";
+ const rows=analysisRows.filter(x=>(!warehouse||x.warehouse===warehouse)&&(!address||x.address.toLocaleLowerCase("pt-BR").includes(address))&&(!type||type==="missing"&&x.missingLots.length||type==="unexpected"&&x.unexpectedLots.length||type==="pending"&&x.pendingCount));
+ document.getElementById("analysisCount").textContent=fmtN.format(rows.length)+" de "+fmtN.format(analysisRows.length)+" endereços";
  document.getElementById("analysisResult").textContent=rows.length?"Exibindo "+fmtN.format(rows.length)+" endereços para análise.":"Nenhum endereço para os filtros selecionados.";
  const tbody=document.getElementById("analysisRows");tbody.replaceChildren();
  for(const x of rows){
@@ -95,46 +92,17 @@ function renderAnalysisRows(){
   const pending=cell(fmtN.format(x.pendingCount),"num");pending.append(lotDetails("Ver lotes pendentes",x.pendingLots));
   const difference=cell("");difference.append(lotDetails("Não lidos: "+fmtN.format(x.missingLots.length),x.missingLots),lotDetails("Não previstos: "+fmtN.format(x.unexpectedLots.length),x.unexpectedLots));
   cell(x.counters.length?x.counters.join(", "):"Não informado");
-  const reviewCell=cell("");const select=document.createElement("select");select.className="review-select";select.setAttribute("aria-label","Revisão de "+x.warehouse+" "+x.address);
-  for(const [value,label] of [["pendente","Pendente de análise"],["validado","Validado"],["refazer","Refazer contagem"]])select.add(new Option(label,value));
-  select.value=reviewValues.get(reviewId(x))?.status||"pendente";select.disabled=!reviewOnline;
-  select.onchange=async()=>{
-   const previous=reviewValues.get(reviewId(x))?.status||"pendente",status=select.value;
-   const key=document.getElementById("reviewKey").value.trim(),reviewer=document.getElementById("reviewerName").value.trim();
-   if(!key||!reviewer){select.value=previous;document.getElementById("analysisResult").textContent="Informe seu nome e a chave de edição para salvar a revisão para todos.";return;}
-   select.disabled=true;document.getElementById("analysisResult").textContent="Salvando revisão de "+x.address+"…";
-   try{
-    const response=await fetch(reviewApi+"/reviews",{method:"PUT",headers:{"content-type":"application/json","authorization":"Bearer "+key},body:JSON.stringify({snapshotId:reviewSnapshot,warehouse:x.warehouse,address:x.address,status,reviewer})});
-    if(!response.ok)throw new Error(response.status===401?"Chave de edição incorreta.":"Falha ao salvar ("+response.status+").");
-    const saved=await response.json();reviewValues.set(reviewId(x),saved.review);
-    document.getElementById("analysisResult").textContent="Revisão salva para todos: "+x.warehouse+" / "+x.address+".";
-   }catch(error){select.value=previous;document.getElementById("analysisResult").textContent=error.message+" Nenhuma alteração foi confirmada.";}
-   select.disabled=!reviewOnline;
-  };
-  reviewCell.append(select);tr.append();tbody.append(tr);
+  tbody.append(tr);
  }
 }
-async function loadReviews(snapshot){
- reviewOnline=false;reviewValues=new Map();
- const status=document.getElementById("reviewConnection");status.textContent="Verificando gravação compartilhada…";
- try{
-  const response=await fetch(reviewApi+"/reviews?snapshot="+encodeURIComponent(snapshot),{cache:"no-store"});
-  if(!response.ok)throw new Error("Serviço indisponível");
-  const data=await response.json();if(!Array.isArray(data.reviews))throw new Error("Resposta inválida");
-  reviewValues=new Map(data.reviews.map(x=>[reviewId(x),x]));reviewOnline=true;
-  status.textContent="Revisões compartilhadas ativas. Informe seu nome e a chave para editar.";
- }catch{status.textContent="Gravação compartilhada indisponível. As revisões estão bloqueadas até o serviço entrar no ar.";}
- renderAnalysisRows();
-}
 function renderInconsistencies(d){
- reviewRows=(d.inconsistencies||[]).slice().sort((a,b)=>a.warehouse.localeCompare(b.warehouse,"pt-BR",{numeric:true})||a.address.localeCompare(b.address,"pt-BR",{numeric:true}));
- reviewSnapshot=String(d.snapshotId||"");
+ analysisRows=(d.inconsistencies||[]).slice().sort((a,b)=>a.warehouse.localeCompare(b.warehouse,"pt-BR",{numeric:true})||a.address.localeCompare(b.address,"pt-BR",{numeric:true}));
  const select=document.getElementById("analysisWarehouse"),previous=select.value;
- select.replaceChildren(new Option("Todos",""),...Array.from(new Set(reviewRows.map(x=>x.warehouse))).sort().map(x=>new Option(x,x)));
+ select.replaceChildren(new Option("Todos",""),...Array.from(new Set(analysisRows.map(x=>x.warehouse))).sort().map(x=>new Option(x,x)));
  if(Array.from(select.options).some(x=>x.value===previous))select.value=previous;
  document.getElementById("analysisUnmapped").textContent=fmtN.format(Number(d.unmappedPendingRows||0))+" registros de Pend.Inventario sem endereço de origem; fora do cruzamento.";
  select.onchange=renderAnalysisRows;document.getElementById("analysisAddress").oninput=renderAnalysisRows;document.getElementById("analysisType").onchange=renderAnalysisRows;
- renderAnalysisRows();if(reviewSnapshot)loadReviews(reviewSnapshot);
+ renderAnalysisRows();
 }
 function render(d){
  document.getElementById("error").style.display="none";
