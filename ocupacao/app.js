@@ -30,7 +30,7 @@ function refreshOptions(){
 }
 async function refreshPublishedData(){
  if(fetching)return;
- fetching=true;$('refreshData').disabled=true;
+ fetching=true;
  try{
   const url=new URL('data.js',location.href);url.searchParams.set('_update',Date.now());
   const response=await fetch(url,{cache:'no-store'});
@@ -47,15 +47,10 @@ async function refreshPublishedData(){
   const stamp=meta?.updatedAt?new Date(meta.updatedAt).toLocaleString('pt-BR'):'não informada';
   $('lastUpdate').textContent=stamp;
   $('lastUpdate').dateTime=meta?.updatedAt||'';
-  $('freshness').classList.remove('error');
-  $('freshness').textContent='Última publicação: '+stamp+' · Atualização manual pelo botão';
   const footer=document.querySelector('footer');
   if(footer?.firstChild)footer.firstChild.textContent='Fonte: endereços_capacidade · Dados publicados em '+stamp+'.';
- }catch(error){
-  $('freshness').classList.add('error');
-  $('freshness').textContent=data.length?'Falha ao buscar a versão mais recente. Os valores são da última consulta. Clique em Atualizar dados para tentar novamente.':'Não foi possível carregar os dados. Clique em Atualizar dados para tentar novamente.';
- }finally{fetching=false;$('refreshData').disabled=false;}
+ }catch(error){ console.warn(error);
+ }finally{fetching=false;}
 }
 $('occupancy').textContent='—';$('volume').textContent='—';
-$('refreshData').addEventListener('click',refreshPublishedData);
 refreshPublishedData();
